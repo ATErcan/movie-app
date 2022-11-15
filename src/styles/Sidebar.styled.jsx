@@ -18,6 +18,7 @@ export const Nav = styled.nav`
   top: 0;
   left: 0;
   transition: all 0.2s linear;
+  z-index: 100;
 `;
 
 export const Close = styled(AiOutlineClose)`
