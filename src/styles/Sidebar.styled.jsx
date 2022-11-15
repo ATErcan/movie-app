@@ -23,6 +23,10 @@ export const Nav = styled.nav`
 export const Close = styled(AiOutlineClose)`
   font-size: 1.5rem;
   margin: 0 1rem 1rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const NavLinksUl = styled.ul`
@@ -76,4 +80,8 @@ export const NavbarTop = styled.div`
 
 export const Bars = styled(FaBars)`
   font-size: 1.5rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
