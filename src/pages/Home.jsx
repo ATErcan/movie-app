@@ -24,7 +24,7 @@ const Home = () => {
       </HomeHeader>
 
       <WebsiteDesc>
-        <FlexContainer>
+        <FlexContainer slide="300px">
           <Thumbnails
             src="https://img.freepik.com/free-vector/cinema-film-production-realistic-transparent-composition-with-isolated-image-clapper-with-empty-fields-vector-illustration_1284-66163.jpg?w=740&t=st=1668515944~exp=1668516544~hmac=53c01cf1f8a81f8db3c4978d80cda5dd4cc762388b9704c935f0860aa7c6afea"
             alt="MovieThumbnail"

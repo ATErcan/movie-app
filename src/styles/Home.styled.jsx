@@ -5,6 +5,7 @@ export const HomeSection = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+  overflow: hidden;
   @media screen and (min-width: 992px) {
     flex-direction: row;
   }
@@ -17,12 +18,23 @@ export const HomeHeader = styled.header`
   justify-content: center;
   background-color: #fff;
   padding: 1rem 2rem;
+  animation: slider 1s ease-in-out 1;
   @media screen and (min-width: 576px) {
     width: 60%;
     margin: 2rem auto;
   }
   @media screen and (min-width: 992px) {
     width: 50%;
+  }
+  @keyframes slider {
+    0% {
+      transform: translateY(300px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 `;
 
