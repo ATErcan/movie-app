@@ -8,10 +8,31 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useState } from "react";
+import { createUser } from "../auth/firebase";
 
 const Register = () => {
+  // state that we store our register form values
+  const [registerInfo, setRegisterInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  // function to get the register form values
+  const handleRegisterInfo = (e) => {
+    setRegisterInfo((prevRegisterInfo) => {
+      return {
+        ...prevRegisterInfo,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    createUser(registerInfo.email, registerInfo.password);
   };
 
   return (
@@ -42,6 +63,7 @@ const Register = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={handleRegisterInfo}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -52,6 +74,7 @@ const Register = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                onChange={handleRegisterInfo}
               />
             </Grid>
             <Grid item xs={12}>
@@ -62,6 +85,7 @@ const Register = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleRegisterInfo}
               />
             </Grid>
             <Grid item xs={12}>
@@ -73,6 +97,7 @@ const Register = () => {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                onChange={handleRegisterInfo}
               />
             </Grid>
           </Grid>
@@ -86,7 +111,7 @@ const Register = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

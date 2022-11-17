@@ -31,6 +31,7 @@ export const createUser = async (email, password) => {
       email,
       password
     );
+    console.log(userCredential);
   } catch (error) {
     console.log(error.message);
   }
