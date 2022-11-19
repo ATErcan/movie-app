@@ -38,9 +38,9 @@ const Register = () => {
     createUser(
       registerInfo.email,
       registerInfo.password,
-      registerInfo.firstName
+      registerInfo.firstName,
+      navigate
     );
-    navigate("/");
   };
 
   return (

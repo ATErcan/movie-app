@@ -34,8 +34,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(loginInfo.email, loginInfo.password);
-    navigate("/");
+    signIn(loginInfo.email, loginInfo.password, navigate);
   };
 
   return (
