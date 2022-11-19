@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Carousel from "./Carousel";
+import MovieCarousel from "./MovieCarousel";
 
 const Preview = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -20,7 +20,13 @@ const Preview = () => {
       .then((res) => setPreviewMovies(res.data.results));
   };
   console.log(previewMovies);
-  return <Carousel />;
+  return (
+    <>
+      {previewMovies.length > 0 && (
+        <MovieCarousel previewMovies={previewMovies} />
+      )}
+    </>
+  );
 };
 
 export default Preview;

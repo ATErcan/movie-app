@@ -81,6 +81,10 @@ export const NavbarTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: ${({ navStyle }) => navStyle && "absolute"};
+  z-index: 5;
+  left: 0;
+  width: 100%;
 `;
 
 export const Bars = styled(FaBars)`
