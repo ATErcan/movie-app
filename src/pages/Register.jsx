@@ -10,8 +10,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { createUser } from "../auth/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   // state that we store our register form values
   const [registerInfo, setRegisterInfo] = useState({
     firstName: "",
@@ -32,7 +35,12 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser(registerInfo.email, registerInfo.password);
+    createUser(
+      registerInfo.email,
+      registerInfo.password,
+      registerInfo.firstName
+    );
+    navigate("/");
   };
 
   return (
@@ -64,6 +72,7 @@ const Register = () => {
                 label="First Name"
                 autoFocus
                 onChange={handleRegisterInfo}
+                value={registerInfo.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -75,6 +84,7 @@ const Register = () => {
                 name="lastName"
                 autoComplete="family-name"
                 onChange={handleRegisterInfo}
+                value={registerInfo.lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -86,6 +96,7 @@ const Register = () => {
                 name="email"
                 autoComplete="email"
                 onChange={handleRegisterInfo}
+                value={registerInfo.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -98,6 +109,7 @@ const Register = () => {
                 id="password"
                 autoComplete="new-password"
                 onChange={handleRegisterInfo}
+                value={registerInfo.password}
               />
             </Grid>
           </Grid>

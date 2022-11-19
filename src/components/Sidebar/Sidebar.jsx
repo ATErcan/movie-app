@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContextProvider";
 import {
   Bars,
   Close,
@@ -9,12 +10,15 @@ import {
   NavLinksUl,
   NavLinkTitles,
 } from "../../styles/Sidebar.styled";
+import ActiveUser from "./ActiveUser";
 import { SidebarData } from "./SidebarData";
 
 const Sidebar = () => {
+  const { currentUser } = useContext(AuthContext);
   // state to change width to toggle Sidebar
   const [showSidebar, setShowSidebar] = useState(false);
 
+  // function that changes state to control sidebar
   const toggleSidebar = () => {
     setShowSidebar((prevShowSidebar) => !prevShowSidebar);
   };
@@ -34,6 +38,7 @@ const Sidebar = () => {
     <>
       <NavbarTop>
         <Bars onClick={toggleSidebar} />
+        {currentUser && <ActiveUser />}
       </NavbarTop>
       <Nav showSidebar={showSidebar}>
         <Close onClick={toggleSidebar} />

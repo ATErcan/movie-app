@@ -11,14 +11,31 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
+import { signIn } from "../auth/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  // state to store login information
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
+
+  const handleLoginInfo = (e) => {
+    setLoginInfo((prevLoginInfo) => {
+      return {
+        ...prevLoginInfo,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    signIn(loginInfo.email, loginInfo.password);
+    navigate("/");
   };
 
   return (
@@ -38,7 +55,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -46,8 +63,9 @@ const Login = () => {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
             autoFocus
+            value={loginInfo.email}
+            onChange={handleLoginInfo}
           />
           <TextField
             margin="normal"
@@ -58,6 +76,8 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={loginInfo.password}
+            onChange={handleLoginInfo}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

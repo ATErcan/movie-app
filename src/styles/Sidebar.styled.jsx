@@ -54,6 +54,7 @@ export const NavLinks = styled(NavLink)`
 
 export const NavLinkTitles = styled.span`
   text-decoration: none;
+  font-family: "Lato", sans-serif;
 `;
 
 const NavIcons = css`
@@ -77,6 +78,9 @@ export const NavbarTop = styled.div`
   background-color: #060b26;
   color: #fff;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const Bars = styled(FaBars)`
