@@ -75,7 +75,7 @@ export const RegisterIcon = styled(GiArchiveRegister)`
 `;
 
 export const NavbarTop = styled.div`
-  background-color: #060b26;
+  background-color: ${({ navStyle }) => (navStyle ? "none" : "#060b26")};
   color: #fff;
   padding: 1rem;
   display: flex;

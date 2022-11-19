@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContextProvider";
 import {
   Bars,
@@ -14,7 +15,18 @@ import ActiveUser from "./ActiveUser";
 import { SidebarData } from "./SidebarData";
 
 const Sidebar = () => {
+  const location = useLocation();
+  const [navStyle, setNavStyle] = useState(false);
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setNavStyle(true);
+    } else {
+      setNavStyle(false);
+    }
+  }, [location.pathname]);
+
   // state to change width to toggle Sidebar
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -36,7 +48,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <NavbarTop>
+      <NavbarTop navStyle={navStyle}>
         <Bars onClick={toggleSidebar} />
         {currentUser && <ActiveUser />}
       </NavbarTop>
