@@ -2,8 +2,24 @@ import styled from "styled-components";
 import { ImArrowDown } from "react-icons/im";
 
 export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
   position: relative;
-  min-width: 200px;
+  width: 200px;
+  height: auto;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  @media screen and (min-width: 768px) {
+    width: 250px;
+  }
+  @media screen and (min-width: 1200px) {
+    width: 270px;
+  }
 `;
 
 export const CardMoviePoster = styled.img`
@@ -52,13 +68,11 @@ export const CardTitleContainer = styled.div`
   }
 `;
 
-export const MovieDetailsArrow = styled(ImArrowDown)`
-  font-size: 1.5rem;
-  align-self: flex-end;
-  display: inline-block;
-`;
 export const CardMovieTitle = styled.h3`
   font-size: 1.2rem;
+  @media screen and (min-width: 1200px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const CardMovieStatistics = styled.div`

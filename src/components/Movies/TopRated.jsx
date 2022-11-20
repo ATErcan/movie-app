@@ -22,7 +22,7 @@ const TopRated = () => {
   }, []);
 
   const topRatedMovieCards = topRatedMovies.map((movie) => {
-    return <SingleMovieCard movie={movie} />;
+    return <SingleMovieCard key={movie.id} movie={movie} />;
   });
 
   return (

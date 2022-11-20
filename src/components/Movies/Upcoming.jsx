@@ -22,7 +22,7 @@ const Upcoming = () => {
   }, []);
 
   const upcomingMovieCards = upcomingMovies.map((movie) => {
-    return <SingleMovieCard movie={movie} />;
+    return <SingleMovieCard key={movie.id} movie={movie} />;
   });
 
   return (
@@ -31,7 +31,9 @@ const Upcoming = () => {
         <MovieGroupsTitle>Upcoming Movies</MovieGroupsTitle>
         <SeeAllLink to="/">See All</SeeAllLink>
       </GroupTitleContainer>
-      <MovieGroupsContainer>{upcomingMovieCards}</MovieGroupsContainer>;
+      <MovieGroupsContainer onClick={(e) => console.log(e.target)}>
+        {upcomingMovieCards}
+      </MovieGroupsContainer>
     </GroupContainer>
   );
 };

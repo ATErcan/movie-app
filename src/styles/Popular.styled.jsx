@@ -30,17 +30,39 @@ export const GroupTitleContainer = styled.div`
 `;
 
 export const MovieGroupsTitle = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   color: #fff;
+  @media screen and (min-width: 576px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 1.8rem;
+  }
+  @media screen and (min-width: 992px) {
+    font-size: 2rem;
+  }
 `;
 
 export const SeeAllLink = styled(Link)`
   color: #fff;
   font-size: 1rem;
+  @media screen and (min-width: 992px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const MovieGroupsContainer = styled.section`
   display: flex;
   column-gap: 1rem;
+  overflow-y: hidden;
   overflow-x: scroll;
+  ::-webkit-scrollbar {
+    height: 8px;
+    visibility: visible;
+  }
+  ::-webkit-scrollbar-thumb {
+    width: 50px;
+    border-radius: 30px;
+    background-color: #222;
+  }
 `;
