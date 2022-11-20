@@ -16,11 +16,13 @@ const PreDetails = ({ movie }) => {
       <MovieBackground src={`${baseImgLink}${movie.backdrop_path}`} />
       <Info>
         <GenreCont>
-          <GenreTexts>Random</GenreTexts>
+          {movie.genres.map((genre) => {
+            return <GenreTexts key={genre.id}>{genre.name}</GenreTexts>;
+          })}
         </GenreCont>
-        <MovieNames>Bullshit</MovieNames>
-        <MovieVote>Go</MovieVote>
-        <MovieDetailsBtn>Yo</MovieDetailsBtn>
+        <MovieNames>{movie.title}</MovieNames>
+        <MovieVote>{movie.vote_average.toFixed(1)}</MovieVote>
+        <MovieDetailsBtn>See Details</MovieDetailsBtn>
       </Info>
     </PreDetailsContainer>
   );
