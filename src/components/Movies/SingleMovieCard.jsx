@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CardContainer,
   CardMovieDate,
@@ -7,25 +8,35 @@ import {
   CardMovieScore,
   CardMovieStatistics,
   CardMovieTitle,
+  CardTitleContainer,
+  MovieDetailsArrow,
 } from "../../styles/SingleMovieCard.styled";
 
-const SingleMovieCard = () => {
+const SingleMovieCard = ({ movie }) => {
+  const baseImgLink = "https://image.tmdb.org/t/p/original";
+  const [showTitle, setShowTitle] = useState(false);
+
   return (
-    <CardContainer>
-      <CardMoviePoster />
-      <CardMovieStatistics>
-        <CardMovieScore>7</CardMovieScore>
+    <CardContainer
+      onMouseOver={() => setShowTitle(true)}
+      onMouseOut={() => setShowTitle(false)}
+    >
+      <CardMoviePoster
+        src={`${baseImgLink}${movie.poster_path}`}
+        alt={movie.original_title}
+      />
+      <CardTitleContainer showTitle={showTitle}>
+        <MovieDetailsArrow />
+        <CardMovieTitle>{movie.title}</CardMovieTitle>
+      </CardTitleContainer>
+      {/*       <CardMovieStatistics>
+        <CardMovieScore>{movie.vote_average.toFixed(1)}</CardMovieScore>
         <CardMoviePopularity>
-          <b>Popularity:</b> 300.000
+          <b>Popularity:</b> {movie.popularity}
         </CardMoviePopularity>
-        <CardMovieDate>20.10.2022</CardMovieDate>
-      </CardMovieStatistics>
-      <CardMovieTitle>Black Panther</CardMovieTitle>
-      <CardMovieOverview>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-        porro veritatis sed iste totam provident ratione repellendus, fuga
-        magni? Maiores.
-      </CardMovieOverview>
+        <CardMovieDate>{movie.release_date}</CardMovieDate>
+      </CardMovieStatistics> */}
+      {/* <CardMovieOverview>{movie.overview}</CardMovieOverview> */}
     </CardContainer>
   );
 };

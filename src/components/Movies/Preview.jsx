@@ -21,11 +21,11 @@ const Preview = () => {
   };
   console.log(previewMovies);
   return (
-    <>
+    <div style={{ backgroundColor: "#000" }}>
       {previewMovies.length > 0 && (
         <MovieCarousel previewMovies={previewMovies} />
       )}
-    </>
+    </div>
   );
 };
 

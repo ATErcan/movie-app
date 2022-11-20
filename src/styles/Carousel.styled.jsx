@@ -14,7 +14,7 @@ export const MovieInfo = styled.div`
   row-gap: 1rem;
   margin-top: -0.3rem;
   padding: 1rem;
-  background-color: #15202b;
+  background-color: #000;
   color: #fff;
   overflow: hidden;
   @media screen and (min-width: 576px) {
