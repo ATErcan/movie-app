@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ImArrowDown } from "react-icons/im";
 
 export const CardContainer = styled.div`
   display: flex;

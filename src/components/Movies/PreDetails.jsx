@@ -5,14 +5,14 @@ import {
   MovieBackground,
   MovieDetailsBtn,
   MovieNames,
+  MovieOverview,
   MovieVote,
   PreDetailsContainer,
+  TitleAndScore,
 } from "../../styles/PreDetails.styled";
 
 const PreDetails = ({ movie }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
-
-  console.log(movie);
 
   return (
     <PreDetailsContainer>
@@ -23,8 +23,11 @@ const PreDetails = ({ movie }) => {
             return <GenreTexts key={genre.id}>{genre.name}</GenreTexts>;
           })}
         </GenreCont>
-        <MovieNames>{movie?.title}</MovieNames>
-        <MovieVote>{movie?.vote_average?.toFixed(1)}</MovieVote>
+        <TitleAndScore>
+          <MovieNames>{movie?.title}</MovieNames>
+          <MovieVote>{movie?.vote_average?.toFixed(1)}</MovieVote>
+        </TitleAndScore>
+        <MovieOverview>{movie?.overview}</MovieOverview>
         <MovieDetailsBtn>See Details</MovieDetailsBtn>
       </Info>
     </PreDetailsContainer>

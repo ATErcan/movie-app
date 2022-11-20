@@ -58,10 +58,10 @@ export const Genres = styled.h6`
   font-size: 0.7rem;
   @media screen and (min-width: 576px) {
     font-size: 1rem;
+    backdrop-filter: blur(10px);
   }
   @media screen and (min-width: 768px) {
     background-color: rgba(200, 200, 200, 0.3);
-    backdrop-filter: blur(10px);
   }
   @media screen and (min-width: 1200px) {
     font-size: 1.3rem;
