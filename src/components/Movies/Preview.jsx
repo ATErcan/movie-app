@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MainContainer } from "../../styles/Carousel.styled";
 import MovieCarousel from "./MovieCarousel";
 
 const Preview = () => {
@@ -19,13 +20,16 @@ const Preview = () => {
       .get(`${baseUrl}discover/movie?api_key=${MOVIE_API}`)
       .then((res) => setPreviewMovies(res.data.results));
   };
+
+  // 576-200 768-300 992-400 1200-500 1400-600? 1600-700?
+
   console.log(previewMovies);
   return (
-    <div style={{ backgroundColor: "#000" }}>
+    <MainContainer>
       {previewMovies.length > 0 && (
         <MovieCarousel previewMovies={previewMovies} />
       )}
-    </div>
+    </MainContainer>
   );
 };
 

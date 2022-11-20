@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const MainContainer = styled.div`
+  background-color: #000;
+`;
+
 export const CarouselContainer = styled.div`
   position: relative;
 `;
