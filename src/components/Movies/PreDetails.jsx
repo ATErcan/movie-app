@@ -11,17 +11,20 @@ import {
 
 const PreDetails = ({ movie }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
+
+  console.log(movie);
+
   return (
     <PreDetailsContainer>
-      <MovieBackground src={`${baseImgLink}${movie.backdrop_path}`} />
+      <MovieBackground src={`${baseImgLink}${movie?.backdrop_path}`} />
       <Info>
         <GenreCont>
-          {movie.genres.map((genre) => {
+          {movie?.genres?.map((genre) => {
             return <GenreTexts key={genre.id}>{genre.name}</GenreTexts>;
           })}
         </GenreCont>
-        <MovieNames>{movie.title}</MovieNames>
-        <MovieVote>{movie.vote_average.toFixed(1)}</MovieVote>
+        <MovieNames>{movie?.title}</MovieNames>
+        <MovieVote>{movie?.vote_average?.toFixed(1)}</MovieVote>
         <MovieDetailsBtn>See Details</MovieDetailsBtn>
       </Info>
     </PreDetailsContainer>
