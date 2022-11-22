@@ -8,20 +8,20 @@ import {
   PageTitleContainer,
 } from "../styles/MovieCard.styled";
 
-const PopularMovies = () => {
+const TopRatedMovies = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
   const MOVIE_API = process.env.REACT_APP_TMDB_KEY;
 
-  const [popularMovies, setPopularMovies] = useState([]);
-  const [page, setPage] = useState(1);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [page, setpPage] = useState(1);
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}&page=${page}`)
-      .then((res) => setPopularMovies(res.data.results));
+      .get(`${baseUrl}movie/top_rated?api_key=${MOVIE_API}&page=${page}`)
+      .then((res) => setTopRatedMovies(res.data.results));
   }, []);
 
-  const popularMovieArray = popularMovies.map((movie) => {
+  const topRatedMovieArray = topRatedMovies.map((movie) => {
     return <MovieCard key={movie.id} movie={movie} />;
   });
 
@@ -29,12 +29,12 @@ const PopularMovies = () => {
     <Page>
       <MovieGridContainer>
         <PageTitleContainer>
-          <PageTitle>Popular Movies</PageTitle>
+          <PageTitle>Top Rated Movies</PageTitle>
         </PageTitleContainer>
-        {popularMovieArray}
+        {topRatedMovieArray}
       </MovieGridContainer>
     </Page>
   );
 };
 
-export default PopularMovies;
+export default TopRatedMovies;

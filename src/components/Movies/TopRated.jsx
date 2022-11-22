@@ -54,7 +54,7 @@ const TopRated = () => {
     <GroupContainer>
       <GroupTitleContainer>
         <MovieGroupsTitle>Top Rated Movies</MovieGroupsTitle>
-        <SeeAllLink to="/">See All</SeeAllLink>
+        <SeeAllLink to="top_rated">See All</SeeAllLink>
       </GroupTitleContainer>
       <MovieGroupsContainer onClick={showDetails}>
         {topRatedMovieCards}

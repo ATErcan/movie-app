@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import PopularMovies from "../pages/PopularMovies";
 import Register from "../pages/Register";
+import TopRatedMovies from "../pages/TopRatedMovies";
+import UpcomingMovies from "../pages/UpcomingMovies";
 import { GlobalStyles } from "../styles/Global.styled";
 
 const AppRouter = () => {
@@ -16,6 +18,8 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/popular" element={<PopularMovies />} />
+        <Route path="/movies/upcoming" element={<UpcomingMovies />} />
+        <Route path="/movies/top_rated" element={<TopRatedMovies />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

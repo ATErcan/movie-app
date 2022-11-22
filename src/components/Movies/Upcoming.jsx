@@ -55,7 +55,7 @@ const Upcoming = () => {
     <GroupContainer>
       <GroupTitleContainer>
         <MovieGroupsTitle>Upcoming Movies</MovieGroupsTitle>
-        <SeeAllLink to="/">See All</SeeAllLink>
+        <SeeAllLink to="upcoming">See All</SeeAllLink>
       </GroupTitleContainer>
       <MovieGroupsContainer onClick={showDetails}>
         {upcomingMovieCards}
