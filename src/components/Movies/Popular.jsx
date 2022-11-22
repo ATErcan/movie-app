@@ -55,7 +55,7 @@ const Popular = () => {
     <PopularGroupContainer>
       <GroupTitleContainer>
         <MovieGroupsTitle>Popular Movies</MovieGroupsTitle>
-        <SeeAllLink to="/">See All</SeeAllLink>
+        <SeeAllLink to="popular">See All</SeeAllLink>
       </GroupTitleContainer>
       <MovieGroupsContainer onClick={showDetails}>
         {popularMovieCards}
