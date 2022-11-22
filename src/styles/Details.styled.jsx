@@ -3,28 +3,46 @@ import styled from "styled-components";
 export const DetailsSection = styled.section`
   background-color: #1f1f1f;
   color: #fff;
+  font-family: "Roboto", sans-serif;
 `;
 
-export const DetailsContainer = styled.div``;
+export const DetailsContainer = styled.div`
+  padding: 1rem;
+`;
 
 export const MovieInfo = styled.div`
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  row-gap: 1rem;
 `;
 
 export const MovieBasicInfo = styled.div`
   display: flex;
   flex-direction: column;
+  row-gap: 0.2rem;
 `;
 
-export const MovieTitle = styled.h2``;
+export const MovieTitle = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+`;
 
-export const OriginalTitle = styled.h4``;
+export const OriginalTitle = styled.h4`
+  font-size: 0.8rem;
+  color: #afa0a3;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: normal;
+`;
 
-export const ReleaseDate = styled.h4``;
+export const ReleaseDate = styled.h4`
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.7);
+`;
 
 export const MovieRatingInfo = styled.div`
   display: flex;
+  column-gap: 1rem;
 `;
 
 export const BasicContainers = styled.div`
@@ -45,7 +63,7 @@ export const ImageAndTrailer = styled.div`
 `;
 
 export const DetailPoster = styled.img`
-  width: 100%;
+  width: 40%;
 `;
 
 export const TrailerContainer = styled.div``;
