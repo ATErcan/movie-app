@@ -4,8 +4,10 @@ import { AuthContext } from "../../context/AuthContextProvider";
 import {
   Bars,
   Close,
+  Logo,
   Nav,
   NavbarTop,
+  NavLeft,
   NavLinks,
   NavLinksItems,
   NavLinksUl,
@@ -49,7 +51,10 @@ const Sidebar = () => {
   return (
     <>
       <NavbarTop navStyle={navStyle}>
-        <Bars onClick={toggleSidebar} />
+        <NavLeft>
+          <Bars onClick={toggleSidebar} />
+          <Logo navStyle={navStyle}>{`</aTe>MDB`}</Logo>
+        </NavLeft>
         {currentUser && <ActiveUser />}
       </NavbarTop>
       <Nav showSidebar={showSidebar}>

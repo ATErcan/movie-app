@@ -9,6 +9,9 @@ export const UserInfoContainer = styled.div`
 export const ActiveUserName = styled.h5`
   font-size: 1.1rem;
   font-family: "Lato", sans-serif;
+  @media screen and (min-width: 768px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export const AvatarContainer = styled.div`

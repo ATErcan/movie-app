@@ -6,6 +6,13 @@ export const HomeSection = styled.section`
   flex-direction: column;
   row-gap: 1rem;
   overflow: hidden;
+  min-height: calc(100vh - 64px);
+  @media screen and (min-width: 576px) {
+    min-height: calc(100vh - 80px);
+  }
+  @media screen and (min-width: 768px) {
+    min-height: calc(100vh - 85px);
+  }
   @media screen and (min-width: 992px) {
     flex-direction: row;
   }
@@ -18,7 +25,6 @@ export const HomeHeader = styled.header`
   justify-content: center;
   background-color: #fff;
   padding: 1rem 2rem;
-  animation: slider 1s ease-in-out 1;
   @media screen and (min-width: 576px) {
     width: 60%;
     margin: 2rem auto;
@@ -28,11 +34,11 @@ export const HomeHeader = styled.header`
   }
   @keyframes slider {
     0% {
-      transform: translateY(300px);
+      transform: translateX(-100%);
       opacity: 0;
     }
     100% {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
     }
   }
@@ -41,6 +47,7 @@ export const HomeHeader = styled.header`
 export const Catchword = styled.h1`
   margin-bottom: 0.5rem;
   font-family: "Plus Jakarta Sans", sans-serif;
+  animation: slider 1s ease-in-out 1;
   @media screen and (min-width: 768px) {
     font-size: 2.2rem;
   }
@@ -57,6 +64,7 @@ export const MainDesc = styled.p`
   line-height: 1.5rem;
   text-align: justify;
   font-family: "IBM Plex Sans", sans-serif;
+  animation: slider 1.2s ease-in-out 1;
   @media screen and (min-width: 768px) {
     font-size: 1.1rem;
   }
@@ -78,6 +86,7 @@ export const DiveInBtn = styled(Link)`
   border-radius: 15px;
   font-weight: bold;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  animation: slider 1.3s ease-in-out 1;
   &:hover {
     background-color: #0059b2;
   }

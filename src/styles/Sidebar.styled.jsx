@@ -9,7 +9,7 @@ import { FaBars } from "react-icons/fa";
 
 export const Nav = styled.nav`
   height: 100vh;
-  background-color: #060b26;
+  background-color: #0e0e0e;
   width: ${({ showSidebar }) => (showSidebar ? "200px" : "0")};
   overflow: hidden;
   color: #fff;
@@ -75,7 +75,7 @@ export const RegisterIcon = styled(GiArchiveRegister)`
 `;
 
 export const NavbarTop = styled.div`
-  background-color: ${({ navStyle }) => (navStyle ? "none" : "#060b26")};
+  background-color: ${({ navStyle }) => (navStyle ? "none" : "#0e0e0e")};
   color: #fff;
   padding: 1rem;
   display: flex;
@@ -85,6 +85,15 @@ export const NavbarTop = styled.div`
   z-index: 5;
   left: 0;
   width: 100%;
+  @media screen and (min-width: 576px) {
+    padding: 1.5rem 1rem;
+  }
+`;
+
+export const NavLeft = styled.div`
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
 `;
 
 export const Bars = styled(FaBars)`
@@ -92,5 +101,15 @@ export const Bars = styled(FaBars)`
   cursor: pointer;
   &:hover {
     opacity: 0.7;
+  }
+`;
+
+export const Logo = styled.h2`
+  display: none;
+  @media screen and (min-width: 576px) {
+    display: ${({ navStyle }) => (navStyle ? "none" : "block")};
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 2rem;
   }
 `;
