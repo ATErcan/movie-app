@@ -106,6 +106,7 @@ export const Bars = styled(FaBars)`
 
 export const Logo = styled.h2`
   display: none;
+  font-family: "Roboto", sans-serif;
   @media screen and (min-width: 576px) {
     display: ${({ navStyle }) => (navStyle ? "none" : "block")};
   }

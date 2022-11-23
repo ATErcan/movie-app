@@ -29,6 +29,7 @@ import {
 } from "../../styles/Details.styled";
 import { useParams } from "react-router-dom";
 import MovieTrailer from "./MovieTrailer";
+import LoadingPage from "../Status/LoadingPage";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -36,12 +37,22 @@ const MovieDetails = () => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [detailsObject, setDetailsObject] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
-      .then((res) => setDetailsObject(res.data));
+    setError(false);
+    try {
+      setLoading(true);
+      axios
+        .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
+        .then((res) => setDetailsObject(res.data));
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const genreArray = detailsObject.genres?.map((genres) => {
@@ -65,49 +76,55 @@ const MovieDetails = () => {
     );
   });
 
-  return (
-    <DetailsSection>
-      <DetailsContainer>
-        <MovieInfo>
-          <MovieBasicInfo>
-            <MovieTitle>{detailsObject?.title}</MovieTitle>
-            <OriginalTitle>
-              Original Title: {detailsObject?.original_title}
-            </OriginalTitle>
-            <ReleaseDate>{detailsObject.release_date}</ReleaseDate>
-          </MovieBasicInfo>
-          <MovieRatingInfo>
-            <BasicContainers>
-              <RatingTitle>TMBD Rating</RatingTitle>
-              <MovieRating>
-                <ScoreIcon />
-                <MovieRatingScore>
-                  {detailsObject?.vote_average?.toFixed(1)}
-                </MovieRatingScore>
-                /10 <br /> {detailsObject?.vote_count}
-              </MovieRating>
-            </BasicContainers>
-            <BasicContainers>
-              <RatingTitle>Popularity</RatingTitle>
-              <Popularity>
-                <PopularityIcon />
-                <h4>{detailsObject?.popularity}</h4>
-              </Popularity>
-            </BasicContainers>
-          </MovieRatingInfo>
-        </MovieInfo>
+  if (loading) {
+    return <LoadingPage />;
+  } else if (error) {
+    return <h1>Error</h1>;
+  } else {
+    return (
+      <DetailsSection>
+        <DetailsContainer>
+          <MovieInfo>
+            <MovieBasicInfo>
+              <MovieTitle>{detailsObject?.title}</MovieTitle>
+              <OriginalTitle>
+                Original Title: {detailsObject?.original_title}
+              </OriginalTitle>
+              <ReleaseDate>{detailsObject.release_date}</ReleaseDate>
+            </MovieBasicInfo>
+            <MovieRatingInfo>
+              <BasicContainers>
+                <RatingTitle>TMBD Rating</RatingTitle>
+                <MovieRating>
+                  <ScoreIcon />
+                  <MovieRatingScore>
+                    {detailsObject?.vote_average?.toFixed(1)}
+                  </MovieRatingScore>
+                  /10 <br /> {detailsObject?.vote_count}
+                </MovieRating>
+              </BasicContainers>
+              <BasicContainers>
+                <RatingTitle>Popularity</RatingTitle>
+                <Popularity>
+                  <PopularityIcon />
+                  <h4>{detailsObject?.popularity}</h4>
+                </Popularity>
+              </BasicContainers>
+            </MovieRatingInfo>
+          </MovieInfo>
 
-        {detailsObject && <MovieTrailer movie={detailsObject} />}
+          {detailsObject && <MovieTrailer movie={detailsObject} />}
 
-        <DetailInfo>
-          <GenreContainer>{genreArray}</GenreContainer>
-          <Tagline>{`"${detailsObject.tagline}"`}</Tagline>
-          <Overview>{detailsObject.overview}</Overview>
-          <CompaniesContainer>{companiesArray}</CompaniesContainer>
-        </DetailInfo>
-      </DetailsContainer>
-    </DetailsSection>
-  );
+          <DetailInfo>
+            <GenreContainer>{genreArray}</GenreContainer>
+            <Tagline>{`"${detailsObject.tagline}"`}</Tagline>
+            <Overview>{detailsObject.overview}</Overview>
+            <CompaniesContainer>{companiesArray}</CompaniesContainer>
+          </DetailInfo>
+        </DetailsContainer>
+      </DetailsSection>
+    );
+  }
 };
 
 export default MovieDetails;

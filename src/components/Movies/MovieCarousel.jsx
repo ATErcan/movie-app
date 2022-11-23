@@ -12,6 +12,7 @@ import {
   MovieScore,
   MovieTitle,
 } from "../../styles/Carousel.styled";
+import LoadingPage from "../Status/LoadingPage";
 
 const MovieCarousel = ({ previewMovies }) => {
   const [movieGenreIds, setMovieGenreIds] = useState([]);
@@ -20,6 +21,7 @@ const MovieCarousel = ({ previewMovies }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [movieDetails, setMovieDetails] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,27 +47,33 @@ const MovieCarousel = ({ previewMovies }) => {
   }, [movieGenreIds]);
 
   return (
-    <Carousel indicatorIconButtonProps={{ style: { display: "none" } }}>
-      {movieDetails?.map((movie) => {
-        return (
-          <CarouselContainer key={movie.id}>
-            <MoviePoster src={`${baseImgLink}${movie.backdrop_path}`} />
-            <MovieInfo>
-              <GenreContainer>
-                {movie.genres.map((genre) => {
-                  return <Genres key={genre.id}>{genre.name}</Genres>;
-                })}
-              </GenreContainer>
-              <MovieTitle>{movie.title}</MovieTitle>
-              <MovieScore>{movie.vote_average.toFixed(1)}</MovieScore>
-              <DetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
-                See Details
-              </DetailsBtn>
-            </MovieInfo>
-          </CarouselContainer>
-        );
-      })}
-    </Carousel>
+    <>
+      {movieDetails?.length < 5 ? (
+        <LoadingPage />
+      ) : (
+        <Carousel indicatorIconButtonProps={{ style: { display: "none" } }}>
+          {movieDetails?.map((movie) => {
+            return (
+              <CarouselContainer key={movie.id}>
+                <MoviePoster src={`${baseImgLink}${movie.backdrop_path}`} />
+                <MovieInfo>
+                  <GenreContainer>
+                    {movie.genres.map((genre) => {
+                      return <Genres key={genre.id}>{genre.name}</Genres>;
+                    })}
+                  </GenreContainer>
+                  <MovieTitle>{movie.title}</MovieTitle>
+                  <MovieScore>{movie.vote_average.toFixed(1)}</MovieScore>
+                  <DetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
+                    See Details
+                  </DetailsBtn>
+                </MovieInfo>
+              </CarouselContainer>
+            );
+          })}
+        </Carousel>
+      )}
+    </>
   );
 };
 
