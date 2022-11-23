@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   CardContainer,
   MovieDescription,
@@ -10,9 +11,11 @@ import {
 const MovieCard = ({ movie }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
   const [showDesc, setShowDesc] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <CardContainer
+      onClick={() => navigate(`/movies/details/${movie.id}`)}
       onMouseOver={() => setShowDesc(true)}
       onMouseOut={() => setShowDesc(false)}
     >

@@ -32,7 +32,8 @@ const MovieTrailer = ({ movie }) => {
       setOfficials(
         videos?.filter(
           (movie) =>
-            movie.type === "Trailer" && movie.name === "Official Trailer"
+            movie.type === "Trailer" &&
+            movie.name.toLowerCase().includes("official trailer")
         )
       );
     }
@@ -45,7 +46,7 @@ const MovieTrailer = ({ movie }) => {
         alt={movie.title}
       />
 
-      {officials.length === 1 ? (
+      {officials.length > 0 ? (
         <TrailerContainer>
           <Trailer
             src={`https://www.youtube.com/embed/${officials[0].key}`}
