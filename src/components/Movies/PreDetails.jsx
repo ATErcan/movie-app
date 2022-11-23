@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   GenreCont,
   GenreTexts,
@@ -13,6 +14,7 @@ import {
 
 const PreDetails = ({ movie }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
+  const navigate = useNavigate();
 
   return (
     <PreDetailsContainer>
@@ -28,7 +30,9 @@ const PreDetails = ({ movie }) => {
           <MovieVote>{movie?.vote_average?.toFixed(1)}</MovieVote>
         </TitleAndScore>
         <MovieOverview>{movie?.overview}</MovieOverview>
-        <MovieDetailsBtn>See Details</MovieDetailsBtn>
+        <MovieDetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
+          See Details
+        </MovieDetailsBtn>
       </Info>
     </PreDetailsContainer>
   );

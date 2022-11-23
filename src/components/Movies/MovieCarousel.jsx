@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
+import { useNavigate } from "react-router-dom";
 import {
   CarouselContainer,
   DetailsBtn,
@@ -19,6 +20,7 @@ const MovieCarousel = ({ previewMovies }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [movieDetails, setMovieDetails] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     previewMovies.slice(0, 5).map((movie) => {
@@ -56,7 +58,9 @@ const MovieCarousel = ({ previewMovies }) => {
               </GenreContainer>
               <MovieTitle>{movie.title}</MovieTitle>
               <MovieScore>{movie.vote_average.toFixed(1)}</MovieScore>
-              <DetailsBtn>See Details</DetailsBtn>
+              <DetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
+                See Details
+              </DetailsBtn>
             </MovieInfo>
           </CarouselContainer>
         );

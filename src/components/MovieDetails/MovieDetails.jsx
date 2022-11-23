@@ -7,12 +7,11 @@ import {
   CompanyLogo,
   CompanyName,
   DetailInfo,
-  DetailPoster,
   DetailsContainer,
   DetailsSection,
   Genre,
   GenreContainer,
-  ImageAndTrailer,
+  LogoContainer,
   MovieBasicInfo,
   MovieInfo,
   MovieRating,
@@ -22,13 +21,14 @@ import {
   OriginalTitle,
   Overview,
   Popularity,
+  PopularityIcon,
   RatingTitle,
   ReleaseDate,
+  ScoreIcon,
   Tagline,
-  Trailer,
-  TrailerContainer,
 } from "../../styles/Details.styled";
 import { useParams } from "react-router-dom";
+import MovieTrailer from "./MovieTrailer";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -40,9 +40,30 @@ const MovieDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}movie/436270?api_key=${MOVIE_API}`)
+      .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
       .then((res) => setDetailsObject(res.data));
   }, []);
+
+  const genreArray = detailsObject.genres?.map((genres) => {
+    return <Genre key={genres.id}>{genres.name}</Genre>;
+  });
+
+  const companiesArray = detailsObject.production_companies?.map((company) => {
+    return (
+      <Companies key={company.id}>
+        <LogoContainer>
+          <CompanyLogo
+            src={
+              company.logo_path
+                ? `${baseImgLink}${company?.logo_path}`
+                : "https://img.freepik.com/free-vector/illustration-camera-icon_53876-5563.jpg?w=826&t=st=1669206703~exp=1669207303~hmac=e0ba54cf4b5f844ef289b9c724bff39926c0c8dc2edd8b2738308d66d89f7733"
+            }
+          />
+        </LogoContainer>
+        <CompanyName>{company?.name}</CompanyName>
+      </Companies>
+    );
+  });
 
   return (
     <DetailsSection>
@@ -59,41 +80,30 @@ const MovieDetails = () => {
             <BasicContainers>
               <RatingTitle>TMBD Rating</RatingTitle>
               <MovieRating>
+                <ScoreIcon />
                 <MovieRatingScore>
                   {detailsObject?.vote_average?.toFixed(1)}
                 </MovieRatingScore>
-                /10 {detailsObject?.vote_count}
+                /10 <br /> {detailsObject?.vote_count}
               </MovieRating>
             </BasicContainers>
             <BasicContainers>
               <RatingTitle>Popularity</RatingTitle>
-              <Popularity>{detailsObject?.popularity}</Popularity>
+              <Popularity>
+                <PopularityIcon />
+                <h4>{detailsObject?.popularity}</h4>
+              </Popularity>
             </BasicContainers>
           </MovieRatingInfo>
         </MovieInfo>
 
-        <ImageAndTrailer>
-          <DetailPoster
-            src={`${baseImgLink}${detailsObject.poster_path}`}
-            alt={detailsObject.title}
-          />
-          <TrailerContainer>
-            <Trailer></Trailer>
-          </TrailerContainer>
-        </ImageAndTrailer>
+        {detailsObject && <MovieTrailer movie={detailsObject} />}
 
         <DetailInfo>
-          <GenreContainer>
-            <Genre>Action</Genre>
-          </GenreContainer>
-          <Tagline>{detailsObject.tagline}</Tagline>
+          <GenreContainer>{genreArray}</GenreContainer>
+          <Tagline>{`"${detailsObject.tagline}"`}</Tagline>
           <Overview>{detailsObject.overview}</Overview>
-          <CompaniesContainer>
-            <Companies>
-              <CompanyLogo />
-              <CompanyName>Marvel</CompanyName>
-            </Companies>
-          </CompaniesContainer>
+          <CompaniesContainer>{companiesArray}</CompaniesContainer>
         </DetailInfo>
       </DetailsContainer>
     </DetailsSection>
