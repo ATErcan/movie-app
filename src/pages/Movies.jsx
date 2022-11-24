@@ -11,7 +11,6 @@ const Movies = () => {
       <Popular />
       <Upcoming />
       <TopRated />
-      <LoadingPage />
     </>
   );
 };

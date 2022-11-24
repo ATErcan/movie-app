@@ -87,6 +87,9 @@ export const Popularity = styled.h4`
 export const ImageAndTrailer = styled.div`
   display: flex;
   position: relative;
+  @media screen and (min-width: 576px) {
+    column-gap: 0.3rem;
+  }
 `;
 
 export const DetailPoster = styled.img`
@@ -95,6 +98,10 @@ export const DetailPoster = styled.img`
   bottom: 0;
   left: 1rem;
   z-index: 2;
+  @media screen and (min-width: 576px) {
+    position: static;
+    width: 35%;
+  }
 `;
 
 export const TrailerContainer = styled.div`
