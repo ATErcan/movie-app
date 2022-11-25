@@ -15,48 +15,46 @@ import {
   ErrorMessage,
 } from "../../styles/Cast.styled";
 import { NoDataEmoji } from "../../styles/NoData.styled";
+import {
+  SimilarCard,
+  SimilarImage,
+  SimilarTitle,
+  SimilarTitleContainer,
+} from "../../styles/Similar.styled";
 
-const Cast = () => {
+const Similar = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
   const MOVIE_API = process.env.REACT_APP_TMDB_KEY;
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [credits, setCredits] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [showTitle, setShowTitle] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     setError(false);
-
     axios
-      .get(`${baseUrl}movie/${id}/credits?api_key=${MOVIE_API}&language=en-US`)
-      .then((res) =>
-        setCredits(
-          res.data.cast.filter(
-            (act) => act.known_for_department.toLowerCase() === "acting"
-          )
-        )
-      )
+      .get(`${baseUrl}movie/${id}/similar?api_key=${MOVIE_API}&language=en-US`)
+      .then((res) => setSimilarMovies(res.data.results))
       .catch((error) => setError(true))
       .finally(setLoading(false));
   }, []);
 
-  const fullCast = credits?.map((cast) => {
+  const similarToThis = similarMovies?.map((movie) => {
     return (
-      <CastCard>
-        <CastImage
-          src={
-            cast?.profile_path ? `${baseImgLink}${cast.profile_path}` : avatar
-          }
-          alt={cast?.name}
-        />
-        <CastName>{cast?.name}</CastName>
-        <CharacterName>{cast?.character}</CharacterName>
-      </CastCard>
+      <SimilarCard>
+        <SimilarImage src={`${baseImgLink}${movie?.poster_path}`} />
+        <SimilarTitleContainer showTitle={showTitle}>
+          <SimilarTitle>{movie?.title}</SimilarTitle>
+        </SimilarTitleContainer>
+      </SimilarCard>
     );
   });
+
+  console.log(similarMovies);
 
   if (loading) {
     return (
@@ -68,17 +66,22 @@ const Cast = () => {
     return (
       <StatusContainer>
         <NoDataEmoji />
-        <ErrorMessage>Cast could not be loaded.</ErrorMessage>
+        <ErrorMessage>Similar movies could not be loaded.</ErrorMessage>
       </StatusContainer>
     );
   } else {
     return (
-      <CastContainer>
-        <SectionTitles>Cast {`>`}</SectionTitles>
-        <CastStructure>{fullCast}</CastStructure>
+      <CastContainer
+        onMouseOver={() => setShowTitle(true)}
+        onMouseOut={() => setShowTitle(false)}
+      >
+        <SectionTitles>Similar Movies {`>`}</SectionTitles>
+        <CastStructure>
+          {similarMovies.length > 0 && similarToThis}
+        </CastStructure>
       </CastContainer>
     );
   }
 };
 
-export default Cast;
+export default Similar;

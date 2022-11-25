@@ -33,6 +33,7 @@ import MovieTrailer from "./MovieTrailer";
 import LoadingPage from "../Status/LoadingPage";
 import NoData from "../Status/NoData";
 import Cast from "./Cast";
+import Similar from "./Similar";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -123,6 +124,8 @@ const MovieDetails = () => {
           </DetailInfo>
 
           <Cast />
+
+          <Similar />
         </DetailsContainer>
       </DetailsSection>
     );
