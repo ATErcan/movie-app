@@ -7,6 +7,7 @@ import {
   MovieGroupsTitle,
   SeeAllLink,
 } from "../../styles/Popular.styled";
+import LoadingPage from "../Status/LoadingPage";
 import PreDetails from "./PreDetails";
 import SingleMovieCard from "./SingleMovieCard";
 
@@ -17,11 +18,18 @@ const Popular = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [moviePreDetails, setMoviePreDetails] = useState("");
   const [showPreDetails, setShowPreDetails] = useState(false);
+  const [error, setError] = useState(false);
+  const [prevError, setPrevError] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}`)
-      .then((res) => setPopularMovies(res.data.results));
+    setError(false);
+    try {
+      axios
+        .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}`)
+        .then((res) => setPopularMovies(res.data.results));
+    } catch (error) {
+      setError(true);
+    }
   }, []);
 
   const showDetails = (e) => {
@@ -37,13 +45,14 @@ const Popular = () => {
   };
 
   const getPreDetails = async (id) => {
+    setPrevError(false);
     try {
       const { data } = await axios.get(
         `${baseUrl}movie/${id}?api_key=${MOVIE_API}`
       );
       setMoviePreDetails(data);
     } catch (error) {
-      console.log(error);
+      setPrevError(true);
     }
   };
 
@@ -51,18 +60,24 @@ const Popular = () => {
     return <SingleMovieCard key={movie.id} movie={movie} />;
   });
 
-  return (
-    <PopularGroupContainer>
-      <GroupTitleContainer>
-        <MovieGroupsTitle>Popular Movies</MovieGroupsTitle>
-        <SeeAllLink to="popular">See All</SeeAllLink>
-      </GroupTitleContainer>
-      <MovieGroupsContainer onClick={showDetails}>
-        {popularMovieCards}
-      </MovieGroupsContainer>
-      {showPreDetails && <PreDetails movie={moviePreDetails} />}
-    </PopularGroupContainer>
-  );
+  if (error) {
+    return <h1>error</h1>;
+  } else {
+    return (
+      <PopularGroupContainer>
+        <GroupTitleContainer>
+          <MovieGroupsTitle>Popular Movies</MovieGroupsTitle>
+          <SeeAllLink to="popular">See All</SeeAllLink>
+        </GroupTitleContainer>
+        <MovieGroupsContainer onClick={showDetails}>
+          {popularMovieCards}
+        </MovieGroupsContainer>
+        {showPreDetails && (
+          <PreDetails movie={moviePreDetails} prevError={prevError} />
+        )}
+      </PopularGroupContainer>
+    );
+  }
 };
 
 export default Popular;

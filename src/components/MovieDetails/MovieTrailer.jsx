@@ -7,6 +7,7 @@ import {
   Trailer,
   TrailerContainer,
 } from "../../styles/Details.styled";
+import LoadingPage from "../Status/LoadingPage";
 
 const MovieTrailer = ({ movie }) => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -15,16 +16,26 @@ const MovieTrailer = ({ movie }) => {
 
   const [videos, setVideos] = useState("");
   const [officials, setOfficials] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     getTrailer();
   }, []);
 
   const getTrailer = async () => {
-    const { data } = await axios.get(
-      `${baseUrl}movie/${movie.id}/videos?api_key=${MOVIE_API}&language=en-US`
-    );
-    setVideos(data.results);
+    setLoading(true);
+    setError(false);
+    try {
+      const { data } = await axios.get(
+        `${baseUrl}movie/${movie.id}/videos?api_key=${MOVIE_API}&language=en-US`
+      );
+      setVideos(data.results);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -39,24 +50,30 @@ const MovieTrailer = ({ movie }) => {
     }
   }, [videos]);
 
-  return (
-    <ImageAndTrailer>
-      <DetailPoster
-        src={`${baseImgLink}${movie.poster_path}`}
-        alt={movie.title}
-      />
+  if (loading) {
+    return <LoadingPage />;
+  } else if (error) {
+    <h1>error</h1>;
+  } else {
+    return (
+      <ImageAndTrailer>
+        <DetailPoster
+          src={`${baseImgLink}${movie.poster_path}`}
+          alt={movie.title}
+        />
 
-      {officials.length > 0 ? (
-        <TrailerContainer>
-          <Trailer
-            src={`https://www.youtube.com/embed/${officials[0].key}`}
-          ></Trailer>
-        </TrailerContainer>
-      ) : (
-        <NoTrailer src="https://cdn-icons-png.flaticon.com/512/813/813856.png?w=826&t=st=1669214457~exp=1669215057~hmac=1c4fe1494e4e15cd86015e060406d597426cef3c56a91c84a7ae7662ffd88946" />
-      )}
-    </ImageAndTrailer>
-  );
+        {officials.length > 0 ? (
+          <TrailerContainer>
+            <Trailer
+              src={`https://www.youtube.com/embed/${officials[0].key}`}
+            ></Trailer>
+          </TrailerContainer>
+        ) : (
+          <NoTrailer src="https://cdn-icons-png.flaticon.com/512/813/813856.png?w=826&t=st=1669214457~exp=1669215057~hmac=1c4fe1494e4e15cd86015e060406d597426cef3c56a91c84a7ae7662ffd88946" />
+        )}
+      </ImageAndTrailer>
+    );
+  }
 };
 
 export default MovieTrailer;

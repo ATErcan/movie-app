@@ -99,6 +99,7 @@ export const MovieNames = styled(MovieTitle)`
 `;
 
 export const MovieVote = styled(MovieScore)`
+  animation: none;
   @media screen and (min-width: 576px) {
     padding: 0.2rem;
     font-size: 0.8rem;

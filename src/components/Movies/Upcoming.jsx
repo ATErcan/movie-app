@@ -17,21 +17,29 @@ const Upcoming = () => {
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [moviePreDetails, setMoviePreDetails] = useState("");
   const [showPreDetails, setShowPreDetails] = useState(false);
+  const [error, setError] = useState(false);
+  const [prevError, setPrevError] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}movie/upcoming?api_key=${MOVIE_API}`)
-      .then((res) => setUpcomingMovies(res.data.results));
+    setError(false);
+    try {
+      axios
+        .get(`${baseUrl}movie/upcoming?api_key=${MOVIE_API}`)
+        .then((res) => setUpcomingMovies(res.data.results));
+    } catch (error) {
+      setError(true);
+    }
   }, []);
 
   const getPreDetails = async (id) => {
+    setPrevError(false);
     try {
       const { data } = await axios.get(
         `${baseUrl}movie/${id}?api_key=${MOVIE_API}`
       );
       setMoviePreDetails(data);
     } catch (error) {
-      console.log(error);
+      setPrevError(true);
     }
   };
 
@@ -51,18 +59,24 @@ const Upcoming = () => {
     return <SingleMovieCard key={movie.id} movie={movie} />;
   });
 
-  return (
-    <GroupContainer>
-      <GroupTitleContainer>
-        <MovieGroupsTitle>Upcoming Movies</MovieGroupsTitle>
-        <SeeAllLink to="upcoming">See All</SeeAllLink>
-      </GroupTitleContainer>
-      <MovieGroupsContainer onClick={showDetails}>
-        {upcomingMovieCards}
-      </MovieGroupsContainer>
-      {showPreDetails && <PreDetails movie={moviePreDetails} />}
-    </GroupContainer>
-  );
+  if (error) {
+    <h1>error</h1>;
+  } else {
+    return (
+      <GroupContainer>
+        <GroupTitleContainer>
+          <MovieGroupsTitle>Upcoming Movies</MovieGroupsTitle>
+          <SeeAllLink to="upcoming">See All</SeeAllLink>
+        </GroupTitleContainer>
+        <MovieGroupsContainer onClick={showDetails}>
+          {upcomingMovieCards}
+        </MovieGroupsContainer>
+        {showPreDetails && (
+          <PreDetails movie={moviePreDetails} prevError={prevError} />
+        )}
+      </GroupContainer>
+    );
+  }
 };
 
 export default Upcoming;

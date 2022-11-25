@@ -22,10 +22,9 @@ export const MovieInfo = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    column-gap: 1rem;
   }
-  @media screen and (min-width: 1200px) {
-    padding: 2rem;
+  @media screen and (min-width: 1300px) {
+    padding: 2rem 0rem;
   }
 `;
 
@@ -180,6 +179,9 @@ export const Trailer = styled.iframe`
 export const NoTrailer = styled.img`
   width: 50%;
   margin: auto;
+  @media screen and (min-width: 768px) {
+    max-width: 280px;
+  }
 `;
 
 export const DetailInfo = styled.div`
@@ -188,6 +190,9 @@ export const DetailInfo = styled.div`
   padding: 1rem;
   @media screen and (min-width: 768px) {
     padding: 1rem 2rem;
+  }
+  @media screen and (min-width: 1300px) {
+    padding: 2rem 0rem;
   }
 `;
 
@@ -229,23 +234,19 @@ export const Overview = styled.p`
 `;
 
 export const CompaniesContainer = styled.div`
-  display: grid;
-  grid-template-columns: 45% 45%;
-  grid-template-rows: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   text-align: center;
-  row-gap: 0.5rem;
+  column-gap: 1rem;
   margin: 1rem 0;
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 30% 30% 30%;
-    justify-content: center;
-  }
   @media screen and (min-width: 992px) {
-    grid-template-columns: 25% 25% 25% 25%;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
   }
 `;
 
 export const Companies = styled.div`
+  flex: 0 0 150px;
   display: flex;
   flex-direction: column;
   align-items: center;

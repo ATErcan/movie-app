@@ -38,14 +38,14 @@ const MovieDetails = () => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [detailsObject, setDetailsObject] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
+    setLoading(true);
     setError(false);
     try {
-      setLoading(true);
       axios
         .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
         .then((res) => setDetailsObject(res.data));

@@ -16,21 +16,29 @@ const TopRated = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [moviePreDetails, setMoviePreDetails] = useState("");
   const [showPreDetails, setShowPreDetails] = useState(false);
+  const [error, setError] = useState(false);
+  const [prevError, setPrevError] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${baseUrl}movie/top_rated?api_key=${MOVIE_API}`)
-      .then((res) => setTopRatedMovies(res.data.results));
+    setError(false);
+    try {
+      axios
+        .get(`${baseUrl}movie/top_rated?api_key=${MOVIE_API}`)
+        .then((res) => setTopRatedMovies(res.data.results));
+    } catch (error) {
+      setError(true);
+    }
   }, []);
 
   const getPreDetails = async (id) => {
+    setPrevError(false);
     try {
       const { data } = await axios.get(
         `${baseUrl}movie/${id}?api_key=${MOVIE_API}`
       );
       setMoviePreDetails(data);
     } catch (error) {
-      console.log(error);
+      setPrevError(true);
     }
   };
 
@@ -50,18 +58,24 @@ const TopRated = () => {
     return <SingleMovieCard key={movie.id} movie={movie} />;
   });
 
-  return (
-    <GroupContainer>
-      <GroupTitleContainer>
-        <MovieGroupsTitle>Top Rated Movies</MovieGroupsTitle>
-        <SeeAllLink to="top_rated">See All</SeeAllLink>
-      </GroupTitleContainer>
-      <MovieGroupsContainer onClick={showDetails}>
-        {topRatedMovieCards}
-      </MovieGroupsContainer>
-      {showPreDetails && <PreDetails movie={moviePreDetails} />}
-    </GroupContainer>
-  );
+  if (error) {
+    return <h1>error</h1>;
+  } else {
+    return (
+      <GroupContainer>
+        <GroupTitleContainer>
+          <MovieGroupsTitle>Top Rated Movies</MovieGroupsTitle>
+          <SeeAllLink to="top_rated">See All</SeeAllLink>
+        </GroupTitleContainer>
+        <MovieGroupsContainer onClick={showDetails}>
+          {topRatedMovieCards}
+        </MovieGroupsContainer>
+        {showPreDetails && (
+          <PreDetails movie={moviePreDetails} prevError={prevError} />
+        )}
+      </GroupContainer>
+    );
+  }
 };
 
 export default TopRated;
