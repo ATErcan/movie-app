@@ -13,7 +13,7 @@ export const NoDataContainer = styled.div`
 
 export const NoDataEmoji = styled(BsEmojiFrown)`
   font-size: 1.2rem;
-  min-width: 80px;
+  min-width: 65px;
   color: #fff;
   @media screen and (min-width: 576px) {
     font-size: 1.4rem;

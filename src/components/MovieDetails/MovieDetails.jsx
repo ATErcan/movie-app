@@ -32,6 +32,7 @@ import { useParams } from "react-router-dom";
 import MovieTrailer from "./MovieTrailer";
 import LoadingPage from "../Status/LoadingPage";
 import NoData from "../Status/NoData";
+import Cast from "./Cast";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -120,6 +121,8 @@ const MovieDetails = () => {
             <Overview>{detailsObject.overview}</Overview>
             <CompaniesContainer>{companiesArray}</CompaniesContainer>
           </DetailInfo>
+
+          <Cast />
         </DetailsContainer>
       </DetailsSection>
     );

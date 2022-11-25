@@ -6,6 +6,7 @@ export const DetailsSection = styled.section`
   background-color: #1f1f1f;
   color: #fff;
   font-family: "Roboto", sans-serif;
+  padding-bottom: 3rem;
 `;
 
 export const DetailsContainer = styled.div`
