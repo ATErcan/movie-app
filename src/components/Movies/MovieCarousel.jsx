@@ -13,6 +13,7 @@ import {
   MovieTitle,
 } from "../../styles/Carousel.styled";
 import LoadingPage from "../Status/LoadingPage";
+import NoData from "../Status/NoData";
 
 const MovieCarousel = ({ previewMovies }) => {
   const [movieGenreIds, setMovieGenreIds] = useState([]);
@@ -21,6 +22,7 @@ const MovieCarousel = ({ previewMovies }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [movieDetails, setMovieDetails] = useState([]);
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,11 +32,10 @@ const MovieCarousel = ({ previewMovies }) => {
         return [...prevGenreIds, movie.id];
       });
     });
-
-    console.log(movieDetails);
   }, []);
 
   useEffect(() => {
+    setError(false);
     for (let i = 0; i < movieGenreIds.length; i++) {
       axios
         .get(`${baseUrl}movie/${movieGenreIds[i]}?api_key=${MOVIE_API}`)
@@ -42,39 +43,44 @@ const MovieCarousel = ({ previewMovies }) => {
           setMovieDetails((prevMovieDetails) => {
             return [...prevMovieDetails, res.data];
           })
-        );
+        )
+        .catch((error) => setError(true));
     }
   }, [movieGenreIds]);
 
-  return (
-    <>
-      {movieDetails?.length < 5 ? (
-        <LoadingPage />
-      ) : (
-        <Carousel indicatorIconButtonProps={{ style: { display: "none" } }}>
-          {movieDetails?.map((movie) => {
-            return (
-              <CarouselContainer key={movie.id}>
-                <MoviePoster src={`${baseImgLink}${movie.backdrop_path}`} />
-                <MovieInfo>
-                  <GenreContainer>
-                    {movie.genres.map((genre) => {
-                      return <Genres key={genre.id}>{genre.name}</Genres>;
-                    })}
-                  </GenreContainer>
-                  <MovieTitle>{movie.title}</MovieTitle>
-                  <MovieScore>{movie.vote_average.toFixed(1)}</MovieScore>
-                  <DetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
-                    See Details
-                  </DetailsBtn>
-                </MovieInfo>
-              </CarouselContainer>
-            );
-          })}
-        </Carousel>
-      )}
-    </>
-  );
+  if (error) {
+    return <NoData />;
+  } else {
+    return (
+      <>
+        {movieDetails?.length < 5 ? (
+          <LoadingPage />
+        ) : (
+          <Carousel indicatorIconButtonProps={{ style: { display: "none" } }}>
+            {movieDetails?.map((movie) => {
+              return (
+                <CarouselContainer key={movie.id}>
+                  <MoviePoster src={`${baseImgLink}${movie.backdrop_path}`} />
+                  <MovieInfo>
+                    <GenreContainer>
+                      {movie.genres.map((genre) => {
+                        return <Genres key={genre.id}>{genre.name}</Genres>;
+                      })}
+                    </GenreContainer>
+                    <MovieTitle>{movie.title}</MovieTitle>
+                    <MovieScore>{movie.vote_average.toFixed(1)}</MovieScore>
+                    <DetailsBtn onClick={() => navigate(`details/${movie.id}`)}>
+                      See Details
+                    </DetailsBtn>
+                  </MovieInfo>
+                </CarouselContainer>
+              );
+            })}
+          </Carousel>
+        )}
+      </>
+    );
+  }
 };
 
 export default MovieCarousel;

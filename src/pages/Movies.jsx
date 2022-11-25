@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Popular from "../components/Movies/Popular";
 import Preview from "../components/Movies/Preview";
 import TopRated from "../components/Movies/TopRated";

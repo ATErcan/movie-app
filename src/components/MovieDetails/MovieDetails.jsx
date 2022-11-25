@@ -31,6 +31,7 @@ import {
 import { useParams } from "react-router-dom";
 import MovieTrailer from "./MovieTrailer";
 import LoadingPage from "../Status/LoadingPage";
+import NoData from "../Status/NoData";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -45,15 +46,12 @@ const MovieDetails = () => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    try {
-      axios
-        .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
-        .then((res) => setDetailsObject(res.data));
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
+
+    axios
+      .get(`${baseUrl}movie/${id}?api_key=${MOVIE_API}`)
+      .then((res) => setDetailsObject(res.data))
+      .catch((error) => setError(true))
+      .finally(setLoading(false));
   }, []);
 
   const genreArray = detailsObject.genres?.map((genres) => {
@@ -80,7 +78,7 @@ const MovieDetails = () => {
   if (loading) {
     return <LoadingPage />;
   } else if (error) {
-    return <h1>Error</h1>;
+    return <NoData />;
   } else {
     return (
       <DetailsSection>

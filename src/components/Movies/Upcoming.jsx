@@ -7,6 +7,7 @@ import {
   MovieGroupsTitle,
   SeeAllLink,
 } from "../../styles/Popular.styled";
+import NoData from "../Status/NoData";
 import PreDetails from "./PreDetails";
 import SingleMovieCard from "./SingleMovieCard";
 
@@ -60,7 +61,7 @@ const Upcoming = () => {
   });
 
   if (error) {
-    <h1>error</h1>;
+    <NoData />;
   } else {
     return (
       <GroupContainer>

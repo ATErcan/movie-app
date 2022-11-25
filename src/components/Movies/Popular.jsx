@@ -8,6 +8,7 @@ import {
   SeeAllLink,
 } from "../../styles/Popular.styled";
 import LoadingPage from "../Status/LoadingPage";
+import NoData from "../Status/NoData";
 import PreDetails from "./PreDetails";
 import SingleMovieCard from "./SingleMovieCard";
 
@@ -18,18 +19,18 @@ const Popular = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [moviePreDetails, setMoviePreDetails] = useState("");
   const [showPreDetails, setShowPreDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [prevError, setPrevError] = useState(false);
 
   useEffect(() => {
     setError(false);
-    try {
-      axios
-        .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}`)
-        .then((res) => setPopularMovies(res.data.results));
-    } catch (error) {
-      setError(true);
-    }
+    setLoading(true);
+    axios
+      .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}`)
+      .then((res) => setPopularMovies(res.data.results))
+      .catch((error) => setError(true))
+      .finally(setLoading(false));
   }, []);
 
   const showDetails = (e) => {
@@ -61,7 +62,7 @@ const Popular = () => {
   });
 
   if (error) {
-    return <h1>error</h1>;
+    return <NoData />;
   } else {
     return (
       <PopularGroupContainer>

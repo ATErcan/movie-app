@@ -6,6 +6,8 @@ export const MainContainer = styled.div`
 
 export const CarouselContainer = styled.div`
   position: relative;
+  width: ${({ loading }) => (loading ? "100vw" : "unset")};
+  height: ${({ loading }) => (loading ? "100vh" : "unset")};
 `;
 
 export const MoviePoster = styled.img`

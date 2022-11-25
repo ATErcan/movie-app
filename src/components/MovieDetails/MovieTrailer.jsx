@@ -53,7 +53,7 @@ const MovieTrailer = ({ movie }) => {
   if (loading) {
     return <LoadingPage />;
   } else if (error) {
-    <h1>error</h1>;
+    <NoTrailer src="https://cdn-icons-png.flaticon.com/512/813/813856.png?w=826&t=st=1669214457~exp=1669215057~hmac=1c4fe1494e4e15cd86015e060406d597426cef3c56a91c84a7ae7662ffd88946" />;
   } else {
     return (
       <ImageAndTrailer>

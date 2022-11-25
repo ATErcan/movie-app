@@ -11,13 +11,14 @@ import {
   PreDetailsContainer,
   TitleAndScore,
 } from "../../styles/PreDetails.styled";
+import NoData from "../Status/NoData";
 
 const PreDetails = ({ movie, prevError }) => {
   const baseImgLink = "https://image.tmdb.org/t/p/original";
   const navigate = useNavigate();
 
   if (prevError) {
-    return <h1 style={{ color: "#fff" }}>error</h1>;
+    return <NoData />;
   } else {
     return (
       <PreDetailsContainer>
