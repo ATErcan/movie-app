@@ -22,6 +22,7 @@ import {
   Overview,
   Popularity,
   PopularityIcon,
+  PopularityText,
   RatingTitle,
   ReleaseDate,
   ScoreIcon,
@@ -107,7 +108,7 @@ const MovieDetails = () => {
                 <RatingTitle>Popularity</RatingTitle>
                 <Popularity>
                   <PopularityIcon />
-                  <h4>{detailsObject?.popularity}</h4>
+                  <PopularityText>{detailsObject?.popularity}</PopularityText>
                 </Popularity>
               </BasicContainers>
             </MovieRatingInfo>

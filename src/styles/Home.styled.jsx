@@ -93,6 +93,9 @@ export const DiveInBtn = styled(Link)`
 `;
 
 export const WebsiteDesc = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: #f3f6f9;
   padding: 1rem;
   @media screen and (min-width: 992px) {
