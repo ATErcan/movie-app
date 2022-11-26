@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieGroups/MovieCard";
+import NavigatePages from "../components/MovieGroups/NavigatePages";
 import {
   MovieGridContainer,
   Page,
@@ -14,12 +15,25 @@ const PopularMovies = () => {
 
   const [popularMovies, setPopularMovies] = useState([]);
   const [page, setPage] = useState(1);
+  const [noPrevPage, setNoPrevPage] = useState(false);
+  const [noNextPage, setNoNextPage] = useState(false);
 
   useEffect(() => {
     axios
       .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}&page=${page}`)
       .then((res) => setPopularMovies(res.data.results));
-  }, []);
+  }, [page]);
+
+  useEffect(() => {
+    if (page === 1) {
+      setNoPrevPage(true);
+    } else if (page === 500) {
+      setNoNextPage(true);
+    } else {
+      setNoNextPage(false);
+      setNoPrevPage(false);
+    }
+  }, [page]);
 
   const popularMovieArray = popularMovies.map((movie) => {
     return <MovieCard key={movie.id} movie={movie} />;
@@ -33,6 +47,11 @@ const PopularMovies = () => {
         </PageTitleContainer>
         {popularMovieArray}
       </MovieGridContainer>
+      <NavigatePages
+        noPrevPage={noPrevPage}
+        noNextPage={noNextPage}
+        setPage={setPage}
+      />
     </Page>
   );
 };
