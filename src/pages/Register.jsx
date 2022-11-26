@@ -9,8 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
-import { createUser } from "../auth/firebase";
+import { createUser, signUpWithGoogle } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
+import GoogleIcon from "../assets/GoogleIcon";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -120,6 +121,24 @@ const Register = () => {
             sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
+          </Button>
+          <Button
+            type="button"
+            fullWidth
+            variant="text"
+            onClick={() => signUpWithGoogle(navigate)}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              columnGap: "0.5rem",
+              cursor: "pointer",
+              border: "1.5px solid #3C8BD9",
+              mb: 2,
+            }}
+          >
+            Continue with Google
+            <GoogleIcon color="currentColor" />
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

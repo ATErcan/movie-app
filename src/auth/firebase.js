@@ -2,11 +2,19 @@ import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
+import {
+  toastErrorNotify,
+  toastSuccessNotify,
+  toastWarnNotify,
+} from "../helpers/ToastNotify";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -36,9 +44,9 @@ export const createUser = async (email, password, displayName, navigate) => {
       displayName: displayName,
     });
     navigate("/");
-    console.log(userCredential);
+    toastSuccessNotify("Registered successfully!");
   } catch (error) {
-    console.log(error.message);
+    toastErrorNotify(error.message);
   }
 };
 
@@ -46,8 +54,9 @@ export const signIn = async (email, password, navigate) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     navigate("/");
+    toastSuccessNotify("Logged in successfully!");
   } catch (error) {
-    console.log(error.message);
+    toastErrorNotify(error.message);
   }
 };
 
@@ -56,20 +65,55 @@ export const userObserver = (setCurrentUser) => {
     if (user) {
       const { email, displayName, photoURL } = user;
       setCurrentUser({ email, displayName, photoURL });
-      console.log(user);
     } else {
       setCurrentUser(false);
-      console.log("user signed out");
     }
   });
 };
 
-export const logOut = () => {
+export const logOut = (navigate) => {
+  navigate("/login");
   signOut(auth)
     .then(() => {
-      console.log("Signed out");
+      toastSuccessNotify("Logged out successfully!");
+      console.log("ok");
     })
     .catch((error) => {
-      console.log(error.message);
+      toastErrorNotify(error.message);
+    });
+};
+
+export const forgotPassword = (email) => {
+  //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      toastWarnNotify("Please check your mail box!");
+      // alert("Please check your mail box!");
+    })
+    .catch((err) => {
+      toastErrorNotify(err.message);
+      // alert(err.message);
+      // ..
+    });
+};
+
+//* https://console.firebase.google.com/
+//* => Authentication => sign-in-method => enable Google
+//! Google ile girişi enable yap
+//* => Authentication => settings => Authorized domains => add domain
+//! Projeyi deploy ettikten sonra google sign-in çalışması için domain listesine deploy linkini ekle
+export const signUpWithGoogle = (navigate) => {
+  const provider = new GoogleAuthProvider();
+  //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // console.log(result);
+      navigate("/");
+      toastSuccessNotify("Logged in successfully!");
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      toastErrorNotify("Something Went Wrong...");
     });
 };

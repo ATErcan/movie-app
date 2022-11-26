@@ -2,8 +2,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,8 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useState } from "react";
-import { signIn } from "../auth/firebase";
+import { forgotPassword, signIn, signUpWithGoogle } from "../auth/firebase";
 import { useNavigate } from "react-router-dom";
+import GoogleIcon from "../assets/GoogleIcon";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -78,10 +77,6 @@ const Login = () => {
             value={loginInfo.password}
             onChange={handleLoginInfo}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
@@ -90,9 +85,31 @@ const Login = () => {
           >
             Sign In
           </Button>
+          <Button
+            type="button"
+            fullWidth
+            variant="text"
+            onClick={() => signUpWithGoogle(navigate)}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              columnGap: "0.5rem",
+              cursor: "pointer",
+              border: "1.5px solid #3C8BD9",
+              mb: 2,
+            }}
+          >
+            Continue with Google
+            <GoogleIcon color="currentColor" />
+          </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link
+                href="#"
+                onClick={() => forgotPassword(loginInfo.email)}
+                variant="body2"
+              >
                 Forgot password?
               </Link>
             </Grid>

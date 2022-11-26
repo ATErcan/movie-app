@@ -17,8 +17,7 @@ const ActiveUser = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logOut();
-    navigate("/login");
+    logOut(navigate);
   };
 
   return (
