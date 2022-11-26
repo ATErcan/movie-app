@@ -34,6 +34,7 @@ import LoadingPage from "../Status/LoadingPage";
 import NoData from "../Status/NoData";
 import Cast from "./Cast";
 import Similar from "./Similar";
+import GoBack from "./GoBack";
 
 const MovieDetails = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
@@ -126,6 +127,8 @@ const MovieDetails = () => {
           <Cast />
 
           <Similar />
+
+          <GoBack />
         </DetailsContainer>
       </DetailsSection>
     );

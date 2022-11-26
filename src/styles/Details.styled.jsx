@@ -275,26 +275,17 @@ export const CompanyName = styled.h6`
   }
 `;
 
-export const CastContainer = styled.div``;
+export const GoBackDiv = styled.div``;
 
-export const SecondaryTitle = styled.h2``;
-
-export const ActingCast = styled.div``;
-
-export const Acting = styled.div``;
-
-export const CastImage = styled.img``;
-
-export const CastName = styled.h5``;
-
-export const Character = styled.h6``;
-
-export const SimilarContainer = styled.div``;
-
-export const SimilarMovies = styled.div``;
-
-export const Similar = styled.div``;
-
-export const SimilarPoster = styled.img``;
-
-export const SimilarTitle = styled.h3``;
+export const GoBackButton = styled.button`
+  background-color: unset;
+  border: 0.5px solid #aaa;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`;

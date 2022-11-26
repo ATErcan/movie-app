@@ -64,6 +64,7 @@ export const CastName = styled.h4`
 
 export const CharacterName = styled.h5`
   font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
 `;
 
 export const StatusContainer = styled.div`
