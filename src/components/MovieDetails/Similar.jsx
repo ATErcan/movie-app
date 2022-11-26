@@ -2,35 +2,23 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
-import avatar from "../../assets/avatar.png";
 import {
   CastContainer,
   CastStructure,
-  CastCard,
-  CastImage,
-  CastName,
-  CharacterName,
   SectionTitles,
   StatusContainer,
   ErrorMessage,
 } from "../../styles/Cast.styled";
 import { NoDataEmoji } from "../../styles/NoData.styled";
-import {
-  SimilarCard,
-  SimilarImage,
-  SimilarTitle,
-  SimilarTitleContainer,
-} from "../../styles/Similar.styled";
+import SimilarCardComp from "./SimilarCardComp";
 
 const Similar = () => {
   const baseUrl = "https://api.themoviedb.org/3/";
   const MOVIE_API = process.env.REACT_APP_TMDB_KEY;
-  const baseImgLink = "https://image.tmdb.org/t/p/original";
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
-  const [showTitle, setShowTitle] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,20 +29,11 @@ const Similar = () => {
       .then((res) => setSimilarMovies(res.data.results))
       .catch((error) => setError(true))
       .finally(setLoading(false));
-  }, []);
+  }, [id]);
 
   const similarToThis = similarMovies?.map((movie) => {
-    return (
-      <SimilarCard>
-        <SimilarImage src={`${baseImgLink}${movie?.poster_path}`} />
-        <SimilarTitleContainer showTitle={showTitle}>
-          <SimilarTitle>{movie?.title}</SimilarTitle>
-        </SimilarTitleContainer>
-      </SimilarCard>
-    );
+    return <SimilarCardComp key={movie.id} movie={movie} />;
   });
-
-  console.log(similarMovies);
 
   if (loading) {
     return (
@@ -71,10 +50,7 @@ const Similar = () => {
     );
   } else {
     return (
-      <CastContainer
-        onMouseOver={() => setShowTitle(true)}
-        onMouseOut={() => setShowTitle(false)}
-      >
+      <CastContainer>
         <SectionTitles>Similar Movies {`>`}</SectionTitles>
         <CastStructure>
           {similarMovies.length > 0 && similarToThis}

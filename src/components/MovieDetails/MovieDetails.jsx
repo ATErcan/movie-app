@@ -54,7 +54,7 @@ const MovieDetails = () => {
       .then((res) => setDetailsObject(res.data))
       .catch((error) => setError(true))
       .finally(setLoading(false));
-  }, []);
+  }, [id]);
 
   const genreArray = detailsObject.genres?.map((genres) => {
     return <Genre key={genres.id}>{genres.name}</Genre>;

@@ -21,7 +21,7 @@ const MovieTrailer = ({ movie }) => {
 
   useEffect(() => {
     getTrailer();
-  }, []);
+  }, [movie.id]);
 
   const getTrailer = async () => {
     setLoading(true);

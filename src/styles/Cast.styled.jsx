@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const CastContainer = styled.div`
   padding: 0 1rem;
+  margin-bottom: 2rem;
   @media screen and (min-width: 1300px) {
     padding: 0;
   }

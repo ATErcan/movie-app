@@ -41,11 +41,11 @@ const Cast = () => {
       )
       .catch((error) => setError(true))
       .finally(setLoading(false));
-  }, []);
+  }, [id]);
 
   const fullCast = credits?.map((cast) => {
     return (
-      <CastCard>
+      <CastCard key={cast.id}>
         <CastImage
           src={
             cast?.profile_path ? `${baseImgLink}${cast.profile_path}` : avatar

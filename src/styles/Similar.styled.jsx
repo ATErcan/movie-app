@@ -7,8 +7,18 @@ export const SimilarCard = styled.div`
   text-align: center;
   flex: 0 0 auto;
   height: auto;
-  width: 200px;
+  width: 120px;
+  position: relative;
   cursor: pointer;
+  @media screen and (min-width: 576px) {
+    width: 150px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 180px;
+  }
+  @media screen and (min-width: 992px) {
+    width: 200px;
+  }
 `;
 
 export const SimilarImage = styled.img`
