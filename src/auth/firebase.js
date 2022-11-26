@@ -35,16 +35,13 @@ const auth = getAuth(app);
 
 export const createUser = async (email, password, displayName, navigate) => {
   try {
-    let userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await createUserWithEmailAndPassword(auth, email, password);
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
     navigate("/");
     toastSuccessNotify("Registered successfully!");
+    window.location.reload(false);
   } catch (error) {
     toastErrorNotify(error.message);
   }
@@ -76,7 +73,6 @@ export const logOut = (navigate) => {
   signOut(auth)
     .then(() => {
       toastSuccessNotify("Logged out successfully!");
-      console.log("ok");
     })
     .catch((error) => {
       toastErrorNotify(error.message);

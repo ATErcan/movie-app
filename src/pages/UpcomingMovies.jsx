@@ -22,6 +22,7 @@ const UpcomingMovies = () => {
     axios
       .get(`${baseUrl}movie/upcoming?api_key=${MOVIE_API}&page=${page}`)
       .then((res) => setUpcomingMovies(res.data.results));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {

@@ -22,6 +22,7 @@ const TopRatedMovies = () => {
     axios
       .get(`${baseUrl}movie/top_rated?api_key=${MOVIE_API}&page=${page}`)
       .then((res) => setTopRatedMovies(res.data.results));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {

@@ -55,6 +55,7 @@ const MovieDetails = () => {
       .then((res) => setDetailsObject(res.data))
       .catch((error) => setError(true))
       .finally(setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const genreArray = detailsObject.genres?.map((genres) => {

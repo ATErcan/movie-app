@@ -29,7 +29,6 @@ const Cast = () => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-
     axios
       .get(`${baseUrl}movie/${id}/credits?api_key=${MOVIE_API}&language=en-US`)
       .then((res) =>
@@ -41,6 +40,7 @@ const Cast = () => {
       )
       .catch((error) => setError(true))
       .finally(setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fullCast = credits?.map((cast) => {

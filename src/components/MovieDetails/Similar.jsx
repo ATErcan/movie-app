@@ -29,6 +29,7 @@ const Similar = () => {
       .then((res) => setSimilarMovies(res.data.results))
       .catch((error) => setError(true))
       .finally(setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const similarToThis = similarMovies?.map((movie) => {

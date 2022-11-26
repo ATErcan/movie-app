@@ -22,6 +22,7 @@ const PopularMovies = () => {
     axios
       .get(`${baseUrl}movie/popular?api_key=${MOVIE_API}&page=${page}`)
       .then((res) => setPopularMovies(res.data.results));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
