@@ -15,6 +15,7 @@ import GoogleIcon from "../assets/GoogleIcon";
 
 const Register = () => {
   const navigate = useNavigate();
+  // const { setCurrentUser } = useContext(AuthContext);
 
   // state that we store our register form values
   const [registerInfo, setRegisterInfo] = useState({

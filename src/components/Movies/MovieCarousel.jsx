@@ -32,6 +32,7 @@ const MovieCarousel = ({ previewMovies }) => {
         return [...prevGenreIds, movie.id];
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const MovieCarousel = ({ previewMovies }) => {
         )
         .catch((error) => setError(true));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieGenreIds]);
 
   if (error) {

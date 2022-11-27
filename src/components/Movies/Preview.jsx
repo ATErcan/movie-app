@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { MainContainer } from "../../styles/Carousel.styled";
-import LoadingPage from "../Status/LoadingPage";
 import NoData from "../Status/NoData";
 import MovieCarousel from "./MovieCarousel";
 
@@ -15,6 +14,7 @@ const Preview = ({ setLoading }) => {
   // useEffect for to getting data only first render
   useEffect(() => {
     discoverMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // get data for displaying movies on first visit

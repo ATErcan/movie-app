@@ -29,6 +29,7 @@ const TopRated = () => {
     } catch (error) {
       setError(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getPreDetails = async (id) => {

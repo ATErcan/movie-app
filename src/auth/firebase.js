@@ -33,6 +33,37 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
+/* export const createUser = (
+  email,
+  password,
+  displayName,
+  navigate,
+  setCurrentUser
+) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(async (userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+      await updateProfile(user, {
+        displayName: displayName,
+      });
+      setCurrentUser((prevCurrentUser) => {
+        return {
+          ...prevCurrentUser,
+          displayName: displayName,
+        };
+      });
+    })
+    .catch((error) => {
+      toastErrorNotify(error.message);
+      // ..
+    });
+  navigate("/");
+  toastSuccessNotify("Registered successfully!");
+  // window.location.reload(false);
+}; */
 export const createUser = async (email, password, displayName, navigate) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
@@ -41,12 +72,37 @@ export const createUser = async (email, password, displayName, navigate) => {
     });
     navigate("/");
     toastSuccessNotify("Registered successfully!");
-    window.location.reload(false);
+    // window.location.reload(false);
   } catch (error) {
     toastErrorNotify(error.message);
   }
 };
-
+/* export const createUser = async (
+  email,
+  password,
+  displayName,
+  navigate,
+  setCurrentUser
+) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(auth.currentUser, {
+      displayName: displayName,
+    });
+    setCurrentUser((prevCurrentUser) => {
+      return {
+        ...prevCurrentUser,
+        displayName: displayName,
+      };
+    });
+    navigate("/");
+    toastSuccessNotify("Registered successfully!");
+    // window.location.reload(false);
+  } catch (error) {
+    toastErrorNotify(error.message);
+  }
+};
+ */
 export const signIn = async (email, password, navigate) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -60,13 +116,28 @@ export const signIn = async (email, password, navigate) => {
 export const userObserver = (setCurrentUser) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const { email, displayName, photoURL } = user;
-      setCurrentUser({ email, displayName, photoURL });
+      setCurrentUser(user);
     } else {
       setCurrentUser(false);
     }
   });
 };
+/* export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const { email, displayName, photoURL } = user;
+      setCurrentUser({ email, displayName, photoURL });
+      console.log(user);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ email, displayName, photoURL })
+      );
+    } else {
+      localStorage.removeItem("currentUser");
+      setCurrentUser(false);
+    }
+  });
+}; */
 
 export const logOut = (navigate) => {
   navigate("/login");
