@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   Catchword,
   Descriptions,
@@ -9,8 +10,10 @@ import {
   Thumbnails,
   WebsiteDesc,
 } from "../styles/Home.styled";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Home = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <HomeSection>
       <HomeHeader>
@@ -20,7 +23,7 @@ const Home = () => {
           our platform and discover the world through your windows. Sit back and
           enjoy watching.
         </MainDesc>
-        <DiveInBtn to="/login">Dive In</DiveInBtn>
+        <DiveInBtn to={currentUser ? "/movies" : "/login"}>Dive In</DiveInBtn>
       </HomeHeader>
 
       <WebsiteDesc>
